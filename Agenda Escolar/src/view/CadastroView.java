@@ -16,9 +16,9 @@ import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
 
-import com.ucs.projetotematico.dao.UsuarioDAO;
-import com.ucs.projetotematico.entity.Restricao;
-import com.ucs.projetotematico.entity.Usuario;
+import dao.UsuarioDAO;
+import entity.Restricao;
+import entity.Usuario;
 
 public class CadastroView extends JFrame implements ActionListener {
 	Connection connection;
@@ -51,9 +51,9 @@ public class CadastroView extends JFrame implements ActionListener {
 		fundo = new JPanel(new BorderLayout());
 		botoes = new JPanel(new FlowLayout());
 
-		campos.add(new JLabel("Usuário:"));
+		campos.add(new JLabel("Usuï¿½rio:"));
 		campos.add(tUsuario);
-		campos.add(new JLabel("Tipo do Usuário:"));
+		campos.add(new JLabel("Tipo do Usuï¿½rio:"));
 		campos.add(tTipo);
 		campos.add(new JLabel("Senha:"));
 		campos.add(tSenha);
@@ -109,7 +109,7 @@ public class CadastroView extends JFrame implements ActionListener {
 
 			usuario = dao.find(usuario);
 
-			JOptionPane.showMessageDialog(this, "usuário cadastrado com sucesso!");
+			JOptionPane.showMessageDialog(this, "usuï¿½rio cadastrado com sucesso!");
 
 			new NavegaView(usuario, connection).setVisible(true);
 			this.dispose();

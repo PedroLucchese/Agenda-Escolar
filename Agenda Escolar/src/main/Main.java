@@ -12,6 +12,8 @@ import javax.swing.UIManager;
 import javax.swing.UIManager.LookAndFeelInfo;
 import javax.swing.UnsupportedLookAndFeelException;
 
+import view.InicialView;
+
 public class Main {
 
 	public static Connection openConnection() {
@@ -26,13 +28,13 @@ public class Main {
 		final String pwd = prop.getProperty("pwd");
 
 		try {
-
 			Class.forName(driver);
 			connection = DriverManager.getConnection(url, user, pwd);
+			
 		} catch (final ClassNotFoundException cnfe) {
-			System.out.println("Driver JDBC não encontrado");
+			System.out.println("Driver JDBC nï¿½o encontrado");
 		} catch (final SQLException se) {
-			System.out.println("Falha na conexão " + se.getMessage());
+			System.out.println("Falha na conexï¿½o " + se.getMessage());
 		}
 
 		return connection;
