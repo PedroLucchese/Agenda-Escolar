@@ -2,6 +2,7 @@ package view;
 
 import java.awt.FlowLayout;
 import java.awt.GridLayout;
+import java.awt.BorderLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.sql.Connection;
@@ -13,17 +14,17 @@ import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
 
-import com.ucs.projetotematico.dao.UsuarioDAO;
-import com.ucs.projetotematico.entity.Usuario;
+import dao.UsuarioDAO;
+import entity.Usuario;
 
-public class LoginVIew extends JFrame implements ActionListener {
-	private final Connection connection;
+public class LoginView extends JFrame implements ActionListener {
+	private Connection connection = null;
 	private UsuarioDAO usuarioDAO;
 
 	private JButton bEntra, bVolta, bLimpa;
 	private JPanel fundo, botoes, campos;
 
-	private JTextField tUsuario, tSenha;
+	private JTextField tUsuario, tSenha, tTipo;
 
 	private void init() {
 		this.usuarioDAO = new UsuarioDAO(connection);
@@ -33,6 +34,7 @@ public class LoginVIew extends JFrame implements ActionListener {
 
 		tUsuario = new JTextField("");
 		tSenha = new JTextField("");
+		tTipo = new JTextField("");
 
 		bEntra = new JButton("Entrar");
 		bEntra.addActionListener(this);
@@ -49,6 +51,8 @@ public class LoginVIew extends JFrame implements ActionListener {
 		campos.add(tUsuario);
 		campos.add(new JLabel("Senha:"));
 		campos.add(tSenha);
+		campos.add(new JLabel("Tipo:"));
+		campos.add(tTipo);
 
 		botoes.add(bEntra);
 		botoes.add(bVolta);
@@ -65,7 +69,7 @@ public class LoginVIew extends JFrame implements ActionListener {
 
 	}
 
-	public LoginVIew(Connection connection) {
+	public LoginView(Connection connection) {
 		this.connection = connection;
 		this.init();
 	}
@@ -73,6 +77,7 @@ public class LoginVIew extends JFrame implements ActionListener {
 	private void acaoLimpar() {
 		tUsuario.setText("");
 		tSenha.setText("");
+		tTipo.setText("");
 	}
 
 	private void acaoVoltar() {
@@ -85,21 +90,28 @@ public class LoginVIew extends JFrame implements ActionListener {
 		final Usuario model = new Usuario();
 		model.setNome(tUsuario.getText());
 		model.setSenha(tSenha.getText());
+		model.setTipo(tTipo.getText());
 
 		final Usuario find = getUsuarioDAO().find(model);
-		if (find.getRestricao() == null || find.getRestricao().getId() == null) {
-			
-			Restricao restricao = new Restricao();
-			restricao.setId(-999);
-			find.setRestricao(restricao);;
-		}
 
 		if (find.getId() == null) {
 			JOptionPane.showMessageDialog(this, "usuário não cadastrado!");
 		} else {
-
-			new NavegaView(find, connection).setVisible(true);
-			this.dispose();
+			
+			switch (find.getTipo()) {
+				case "1":
+					// new AlunoView(usuario, connection).setVisible(true);
+					break;
+					
+				case "2":
+					// new ProfessorView(usuario, connection).setVisible(true);
+					break;
+					
+				case "3":
+					// new CoordenadorView(usuario, connection).setVisible(true);
+					break;
+			}
+			//this.dispose();
 		}
 
 	}

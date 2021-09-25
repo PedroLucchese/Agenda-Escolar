@@ -58,7 +58,7 @@ public class UsuarioDAO extends ModelDao<Usuario> {
 		String sql = "insert into " + getModel().getTableName();
 
 		sql = sql.concat(" ( ");
-		sql = sql.concat(" nome,senha");
+		sql = sql.concat(" nome,senha,tipo");
 
 		sql = sql.concat(" ) ");
 
@@ -66,7 +66,7 @@ public class UsuarioDAO extends ModelDao<Usuario> {
 
 		sql = sql.concat(" ( ");
 
-		sql = sql.concat("?,?");
+		sql = sql.concat("?,?,?");
 
 		sql = sql.concat(" ) ");
 
@@ -77,14 +77,14 @@ public class UsuarioDAO extends ModelDao<Usuario> {
 			final PreparedStatement prepareStatement = openConnection.prepareStatement(sql);
 			prepareStatement.setString(1, model.getNome());
 			prepareStatement.setString(2, model.getSenha());
-
+			prepareStatement.setString(3, model.getTipo());
+			
 			prepareStatement.executeUpdate();
 
 			prepareStatement.close();
-			openConnection.close();
 
 		} catch (final SQLException se) {
-			System.out.println("Não foi poss�vel conectar ao Banco de Dados");
+			System.out.println("Não foi poss�vel conectar ao Banco de Dados");
 			se.printStackTrace();
 		}
 
@@ -123,14 +123,16 @@ public class UsuarioDAO extends ModelDao<Usuario> {
 
 		map.put("nome", model.getNome());
 		map.put("senha", model.getSenha());
-
+		map.put("tipo", model.getTipo());
+		
 		super.findByString(map, rs -> {
-			final Usuario receita = convertResultSet(rs);
-			retorno.setId(receita.getId());
-			retorno.setNome(receita.getNome());
-			retorno.setSenha(receita.getSenha());
+			final Usuario usuario = convertResultSet(rs);
+			retorno.setId(usuario.getId());
+			retorno.setNome(usuario.getNome());
+			retorno.setSenha(usuario.getSenha());
+			retorno.setTipo(usuario.getTipo());
 		});
-
+		
 		return retorno;
 	}
 
@@ -138,11 +140,11 @@ public class UsuarioDAO extends ModelDao<Usuario> {
 	public Usuario convertResultSet(ResultSet resultSet) {
 		final Usuario model = new Usuario();
 		try {
-			final int idRestricao = resultSet.getInt("id_restricao");
 
 			model.setId(resultSet.getInt("id"));
 			model.setNome(resultSet.getString("nome"));
 			model.setSenha(resultSet.getString("senha"));
+			model.setTipo(resultSet.getString("tipo"));
 
 		} catch (final SQLException e) {
 			e.printStackTrace();

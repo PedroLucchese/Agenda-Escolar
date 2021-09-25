@@ -51,7 +51,7 @@ public class InicialView extends JFrame implements ActionListener {
 
 	private void acaoLogar() {
 
-		new LoginVIew(connection).setVisible(true);
+		new LoginView(connection).setVisible(true);
 		this.dispose();
 	}
 

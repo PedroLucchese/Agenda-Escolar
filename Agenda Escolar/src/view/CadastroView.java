@@ -17,7 +17,6 @@ import javax.swing.JPanel;
 import javax.swing.JTextField;
 
 import dao.UsuarioDAO;
-import entity.Restricao;
 import entity.Usuario;
 
 public class CadastroView extends JFrame implements ActionListener {
@@ -99,23 +98,40 @@ public class CadastroView extends JFrame implements ActionListener {
 	private void acaoCadastra() {
 
 		this.usuario.setNome(tUsuario.getText());
-		this.usuario.setNome(tTipo.getText());
 		this.usuario.setSenha(tSenha.getText());
-
-		if (validaSenha(usuario.getSenha().trim(), tConfirma.getText().trim())) {
-			final UsuarioDAO dao = new UsuarioDAO(connection);
-
-			dao.saveOrUpdate(usuario);
-
-			usuario = dao.find(usuario);
-
-			JOptionPane.showMessageDialog(this, "usu�rio cadastrado com sucesso!");
-
-			new NavegaView(usuario, connection).setVisible(true);
-			this.dispose();
-
-		} else {
-			JOptionPane.showMessageDialog(this, "a senha deve ser confirmada!");
+		this.usuario.setTipo(tTipo.getText());
+		
+		if (tTipo.getText() == null || tTipo.getText().trim().isEmpty()) {
+			JOptionPane.showMessageDialog(this, "o tipo deve ser informado!");
+		}else {
+		
+			if (validaSenha(usuario.getSenha().trim(), tConfirma.getText().trim())) {
+				final UsuarioDAO dao = new UsuarioDAO(connection);
+	
+				dao.saveOrUpdate(usuario);
+	
+				usuario = dao.find(usuario);
+	
+				JOptionPane.showMessageDialog(this, "usu�rio cadastrado com sucesso!");
+	
+				switch (usuario.getTipo()) {
+					case "1":
+						// new AlunoView(usuario, connection).setVisible(true);
+						break;
+						
+					case "2":
+						// new ProfessorView(usuario, connection).setVisible(true);
+						break;
+						
+					case "3":
+						// new CoordenadorView(usuario, connection).setVisible(true);
+						break;
+				}
+				//this.dispose();
+	
+			} else {
+				JOptionPane.showMessageDialog(this, "a senha deve ser confirmada!");
+			}
 		}
 	}
 
