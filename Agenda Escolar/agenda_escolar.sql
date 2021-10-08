@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1:3306
--- Tempo de geração: 08-Out-2021 às 00:41
+-- Tempo de geração: 08-Out-2021 às 22:25
 -- Versão do servidor: 5.7.31
 -- versão do PHP: 7.3.21
 
@@ -20,6 +20,19 @@ SET time_zone = "+00:00";
 --
 -- Banco de dados: `agenda_escolar`
 --
+
+-- --------------------------------------------------------
+
+--
+-- Estrutura da tabela `avaliacao`
+--
+
+DROP TABLE IF EXISTS `avaliacao`;
+CREATE TABLE IF NOT EXISTS `avaliacao` (
+  `nome` varchar(11) NOT NULL,
+  `nro_avaliacoes` int(10) NOT NULL,
+  `peso` int(11) NOT NULL
+) ENGINE=MyISAM DEFAULT CHARSET=latin1;
 
 -- --------------------------------------------------------
 
@@ -64,13 +77,23 @@ DROP TABLE IF EXISTS `usuario`;
 CREATE TABLE IF NOT EXISTS `usuario` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `nome` varchar(300) COLLATE utf8mb4_unicode_ci NOT NULL,
-  `email` varchar(100) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `email` varchar(100) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
   `id_curso` int(11) DEFAULT NULL,
   `id_disciplina` int(11) DEFAULT NULL,
   `tipo` int(11) NOT NULL,
   `senha` varchar(200) COLLATE utf8mb4_unicode_ci NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=19 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=24 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+--
+-- Extraindo dados da tabela `usuario`
+--
+
+INSERT INTO `usuario` (`id`, `nome`, `email`, `id_curso`, `id_disciplina`, `tipo`, `senha`) VALUES
+(19, 'Aluno', NULL, NULL, NULL, 1, '123'),
+(20, 'professor', NULL, NULL, NULL, 2, '123'),
+(22, 'Coordenador', NULL, NULL, NULL, 3, '123'),
+(23, 'Pedro', NULL, NULL, NULL, 1, '123');
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
