@@ -1,7 +1,7 @@
 package entity;
 
 public class Professor extends Usuario{
-	private String tableName = "professor";
+	private String tableName = "usuario";
 
 	@Override
 	public String getTableName() {
@@ -15,7 +15,7 @@ public class Professor extends Usuario{
 	
 	@Override
 	public String toString() {
-		return "Professor [tableName=" + tableName + "]";
+		return "Usuario [tableName=" + tableName + "]";
 	}
 		
 }

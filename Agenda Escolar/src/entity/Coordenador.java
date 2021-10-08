@@ -1,7 +1,7 @@
 package entity;
 
 public class Coordenador extends Usuario{
-	private String tableName = "coordenador";
+	private String tableName = "usuario";
 	
 	
 	@Override
@@ -16,6 +16,6 @@ public class Coordenador extends Usuario{
 	
 	@Override
 	public String toString() {
-		return "Coordenador [tableName=" + tableName + "]";
+		return "Usuario [tableName=" + tableName + "]";
 	}
 }

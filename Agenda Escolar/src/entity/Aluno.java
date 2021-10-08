@@ -1,7 +1,7 @@
 package entity;
 
 public class Aluno extends Usuario{
-	private String tableName = "aluno";
+	private String tableName = "usuario";
 	private String matricula;
 	
 	@Override

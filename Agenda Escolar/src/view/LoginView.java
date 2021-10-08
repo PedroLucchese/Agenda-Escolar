@@ -15,7 +15,10 @@ import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
 
+import dao.AlunoDAO;
 import dao.UsuarioDAO;
+import dao.CoordenadorDAO;
+import dao.ProfessorDAO;
 import entity.Aluno;
 import entity.Usuario;
 import entity.Coordenador;
@@ -24,6 +27,9 @@ import entity.Professor;
 public class LoginView extends JFrame implements ActionListener {
 	private Connection connection = null;
 	private UsuarioDAO usuarioDAO;
+	private AlunoDAO alunoDAO;
+	private CoordenadorDAO coordenadorDAO;
+	private ProfessorDAO professorDAO;
 
 	private JButton bEntra, bVolta, bLimpa;
 	private JPanel fundo, botoes, campos;
@@ -32,6 +38,9 @@ public class LoginView extends JFrame implements ActionListener {
 
 	private void init() {
 		this.usuarioDAO = new UsuarioDAO(connection);
+		this.alunoDAO = new AlunoDAO(connection);
+		this.coordenadorDAO = new CoordenadorDAO(connection);
+		this.professorDAO = new ProfessorDAO(connection);
 
 		this.setTitle("Login");
 		this.setSize(500, 200);
@@ -91,33 +100,60 @@ public class LoginView extends JFrame implements ActionListener {
 	}
 
 	private void acaoEntrar() {
-		final Usuario model = new Usuario();
-		model.setNome(tUsuario.getText());
-		model.setSenha(tSenha.getText());
-		model.setTipo(tTipo.getText());
-
-		final Usuario find = getUsuarioDAO().find(model);
-
-		if (find.getId() == null) {
-			JOptionPane.showMessageDialog(this, "usuário não cadastrado!");
-		} else {
+		String tipo = tTipo.getText();
+		
+		switch (tipo) {
+		case "1":
+			final Aluno aluno = new Aluno();
 			
-			switch (find.getTipo()) {
-				case "1":
-						new AlunoView ((Aluno)find,connection).setVisible(true);
-					break;
-					
-				case "2":
-						new ProfessorView((Professor)find, connection).setVisible(true);
-					break;
-					
-				case "3":
-						new CoordenadorView((Coordenador)find, connection).setVisible(true);
-					break;
-			}
-			this.dispose();
-		}
+			aluno.setNome(tUsuario.getText());
+			aluno.setSenha(tSenha.getText());
+			aluno.setTipo(tTipo.getText());
 
+			final Aluno alunoFind = getAlunoDAO().find(aluno);
+
+			if (alunoFind.getId() == null) {
+				JOptionPane.showMessageDialog(this, "usuário não cadastrado!");
+			} else {
+				new AlunoView (alunoFind,connection).setVisible(true);
+				this.dispose();
+			}
+			break;
+		
+		case "2":
+			final Professor professor = new Professor();
+			
+			professor.setNome(tUsuario.getText());
+			professor.setSenha(tSenha.getText());
+			professor.setTipo(tTipo.getText());
+
+			final Professor professorFind = getProfessorDAO().find(professor);
+
+			if (professorFind.getId() == null) {
+				JOptionPane.showMessageDialog(this, "usuário não cadastrado!");
+			} else {
+				new ProfessorView(professorFind,connection).setVisible(true);
+				this.dispose();
+			}
+			break;
+		case "3":
+			final Coordenador coordenador = new Coordenador();
+			
+			coordenador.setNome(tUsuario.getText());
+			coordenador.setSenha(tSenha.getText());
+			coordenador.setTipo(tTipo.getText());
+
+			final Coordenador coordenadorFind = getCoordenadorDAO().find(coordenador);
+
+			if (coordenadorFind.getId() == null) {
+				JOptionPane.showMessageDialog(this, "usuário não cadastrado!");
+			} else {
+				new CoordenadorView(coordenadorFind, connection).setVisible(true);
+				this.dispose();
+			}
+			break;
+			
+		}
 	}
 
 	@Override
@@ -138,6 +174,30 @@ public class LoginView extends JFrame implements ActionListener {
 
 	public void setUsuarioDAO(UsuarioDAO usuarioDAO) {
 		this.usuarioDAO = usuarioDAO;
+	}
+	
+	public AlunoDAO getAlunoDAO() {
+		return alunoDAO;
+	}
+
+	public void setAlunoDAO(AlunoDAO alunoDAO) {
+		this.alunoDAO = alunoDAO;
+	}
+	
+	public CoordenadorDAO getCoordenadorDAO() {
+		return coordenadorDAO;
+	}
+
+	public void setCoordenadorDAO(CoordenadorDAO coordenadorDAO) {
+		this.coordenadorDAO = coordenadorDAO;
+	}
+	
+	public ProfessorDAO getProfessorDAO() {
+		return professorDAO;
+	}
+
+	public void setProfessorDAO(ProfessorDAO professorDAO) {
+		this.professorDAO = professorDAO;
 	}
 
 }
