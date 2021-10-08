@@ -100,18 +100,18 @@ public class LoginView extends JFrame implements ActionListener {
 			
 			switch (find.getTipo()) {
 				case "1":
-					// new AlunoView(usuario, connection).setVisible(true);
+						new AlunoView (find,connection).setVisible(true);
 					break;
 					
 				case "2":
-					// new ProfessorView(usuario, connection).setVisible(true);
+						new ProfessorView(find, connection).setVisible(true);
 					break;
 					
 				case "3":
-					// new CoordenadorView(usuario, connection).setVisible(true);
+						new CoordenadorView(find, connection).setVisible(true);
 					break;
 			}
-			//this.dispose();
+			this.dispose();
 		}
 
 	}
