@@ -1,6 +1,6 @@
 package entity;
 
-public class Aluno extends ModelAbstract{
+public class Aluno extends Usuario{
 	private String tableName = "aluno";
 	private String matricula;
 	

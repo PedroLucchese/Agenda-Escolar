@@ -69,7 +69,7 @@ public class AlunoView extends JFrame implements ActionListener {
 
 	}
 
-	public AlunoView(Usuario find, Connection connection) {
+	public AlunoView(Aluno find, Connection connection) {
 		this.connection = connection;
 		this.aluno = find;
 

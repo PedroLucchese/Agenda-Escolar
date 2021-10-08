@@ -76,7 +76,7 @@ public class CoordenadorView extends JFrame implements ActionListener {
 
 	}
 
-	public CoordenadorView( Coordenador coordenador, Connection connection) {
+	public CoordenadorView(Coordenador coordenador, Connection connection) {
 		this.connection = connection;
 		this.coordenador = coordenador;
 

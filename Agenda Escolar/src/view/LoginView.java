@@ -1,6 +1,7 @@
 package view;
 
 import java.awt.FlowLayout;
+
 import java.awt.GridLayout;
 import java.awt.BorderLayout;
 import java.awt.event.ActionEvent;
@@ -15,7 +16,10 @@ import javax.swing.JPanel;
 import javax.swing.JTextField;
 
 import dao.UsuarioDAO;
+import entity.Aluno;
 import entity.Usuario;
+import entity.Coordenador;
+import entity.Professor;
 
 public class LoginView extends JFrame implements ActionListener {
 	private Connection connection = null;
@@ -100,15 +104,15 @@ public class LoginView extends JFrame implements ActionListener {
 			
 			switch (find.getTipo()) {
 				case "1":
-						new AlunoView (find,connection).setVisible(true);
+						new AlunoView ((Aluno)find,connection).setVisible(true);
 					break;
 					
 				case "2":
-						new ProfessorView(find, connection).setVisible(true);
+						new ProfessorView((Professor)find, connection).setVisible(true);
 					break;
 					
 				case "3":
-						new CoordenadorView(find, connection).setVisible(true);
+						new CoordenadorView((Coordenador)find, connection).setVisible(true);
 					break;
 			}
 			this.dispose();

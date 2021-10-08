@@ -1,9 +1,21 @@
 package entity;
 
-public class Coordenador extends Usuario {
+public class Coordenador extends Usuario{
 	private String tableName = "coordenador";
-	private String nome;
-	private String senha;
-	private String tipo;
-
+	
+	
+	@Override
+	public String getTableName() {
+		return tableName;
+	}
+	
+	@Override
+	public void setTableName(String tableName) {
+		this.tableName = tableName;
+	}
+	
+	@Override
+	public String toString() {
+		return "Coordenador [tableName=" + tableName + "]";
+	}
 }
