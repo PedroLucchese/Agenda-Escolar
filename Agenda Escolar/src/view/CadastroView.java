@@ -50,9 +50,9 @@ public class CadastroView extends JFrame implements ActionListener {
 		fundo = new JPanel(new BorderLayout());
 		botoes = new JPanel(new FlowLayout());
 
-		campos.add(new JLabel("Usu�rio:"));
+		campos.add(new JLabel("Usuario:"));
 		campos.add(tUsuario);
-		campos.add(new JLabel("Tipo do Usu�rio:"));
+		campos.add(new JLabel("Tipo do Usuario:"));
 		campos.add(tTipo);
 		campos.add(new JLabel("Senha:"));
 		campos.add(tSenha);
@@ -112,7 +112,7 @@ public class CadastroView extends JFrame implements ActionListener {
 	
 				usuario = dao.find(usuario);
 	
-				JOptionPane.showMessageDialog(this, "usu�rio cadastrado com sucesso!");
+				JOptionPane.showMessageDialog(this, "usuario cadastrado com sucesso!");
 	
 				switch (usuario.getTipo()) {
 					case "1":

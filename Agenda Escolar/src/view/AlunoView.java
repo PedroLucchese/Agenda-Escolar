@@ -53,7 +53,7 @@ public class AlunoView extends JFrame implements ActionListener {
 		campos.add(tNota2);
 		campos.add(new JLabel("Nota 3:"));
 		campos.add(tNota3);
-		campos.add(new JLabel("M�dia:"));
+		campos.add(new JLabel("Media:"));
 		campos.add(tMedia);
 
 		botoes.add(bVolta);

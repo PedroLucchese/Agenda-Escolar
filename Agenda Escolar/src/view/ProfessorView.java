@@ -53,10 +53,10 @@ public class ProfessorView extends JFrame implements ActionListener {
 		fundo = new JPanel(new BorderLayout());
 		botoes = new JPanel(new FlowLayout());
 
-		campos.add(new JLabel("Mat�ria:"));
+		campos.add(new JLabel("Materia:"));
 		campos.add(tMateria);
-		campos.add(new JLabel("Aluno:"));
-		campos.add(tAluno);
+		//campos.add(new JLabel("Lista de Alunos:"));
+		//campos.add(tAluno);
 		campos.add(new JLabel("Nota 1:"));
 		campos.add(tNota1);
 		campos.add(new JLabel("Nota 2:"));

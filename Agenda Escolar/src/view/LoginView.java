@@ -60,7 +60,7 @@ public class LoginView extends JFrame implements ActionListener {
 		fundo = new JPanel(new BorderLayout());
 		botoes = new JPanel(new FlowLayout());
 
-		campos.add(new JLabel("Usuário:"));
+		campos.add(new JLabel("Usuario:"));
 		campos.add(tUsuario);
 		campos.add(new JLabel("Senha:"));
 		campos.add(tSenha);
