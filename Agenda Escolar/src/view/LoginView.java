@@ -111,11 +111,11 @@ public class LoginView extends JFrame implements ActionListener {
 			aluno.setTipo(tTipo.getText());
 
 			final Aluno alunoFind = getAlunoDAO().find(aluno);
-
+			
 			if (alunoFind.getId() == null) {
 				JOptionPane.showMessageDialog(this, "usuário não cadastrado!");
 			} else {
-				new AlunoView (alunoFind,connection).setVisible(true);
+				new AlunoView(alunoFind,connection).setVisible(true);
 				this.dispose();
 			}
 			break;
