@@ -49,14 +49,14 @@ public class ProfessorView extends JFrame implements ActionListener {
 		bLimpa = new JButton("Limpar tudo");
 		bLimpa.addActionListener(this);
 
-		campos = new JPanel(new GridLayout(4, 2));
+		campos = new JPanel(new GridLayout(5, 2));
 		fundo = new JPanel(new BorderLayout());
 		botoes = new JPanel(new FlowLayout());
 
 		campos.add(new JLabel("Materia:"));
 		campos.add(tMateria);
-		//campos.add(new JLabel("Lista de Alunos:"));
-		//campos.add(tAluno);
+		campos.add(new JLabel("Id do aluno:"));
+		campos.add(tAluno);
 		campos.add(new JLabel("Nota 1:"));
 		campos.add(tNota1);
 		campos.add(new JLabel("Nota 2:"));
@@ -143,4 +143,3 @@ public class ProfessorView extends JFrame implements ActionListener {
 	}
 
 }
-

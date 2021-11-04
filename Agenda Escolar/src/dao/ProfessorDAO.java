@@ -25,9 +25,11 @@ public class ProfessorDAO extends ModelDao<Professor> {
 		final List<Professor> receitas = new ArrayList<Professor>();
 
 		super.findAll(rs -> {
-			final Professor receita = (Professor) convertResultSet(rs);
+			final Professor professor = (Professor) convertResultSet(rs);
 			
-
+			if (professor.getTipo().equals("2")) {
+				receitas.add(professor);
+			}
 		});
 
 		return receitas;

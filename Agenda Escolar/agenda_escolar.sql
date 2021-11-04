@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1:3306
--- Tempo de geração: 08-Out-2021 às 22:25
+-- Tempo de geração: 03-Nov-2021 às 21:59
 -- Versão do servidor: 5.7.31
 -- versão do PHP: 7.3.21
 
@@ -29,8 +29,38 @@ SET time_zone = "+00:00";
 
 DROP TABLE IF EXISTS `avaliacao`;
 CREATE TABLE IF NOT EXISTS `avaliacao` (
-  `nome` varchar(11) NOT NULL,
-  `nro_avaliacoes` int(10) NOT NULL,
+  `formula` varchar(60) NOT NULL,
+  `numeroComponentes` int(11) NOT NULL
+) ENGINE=MyISAM DEFAULT CHARSET=latin1;
+
+--
+-- Extraindo dados da tabela `avaliacao`
+--
+
+INSERT INTO `avaliacao` (`formula`, `numeroComponentes`) VALUES
+('M = (n1 * p1 + n2 * p2) / p1 + p2', 2),
+('M = (n1 * p1 + n2 * p2) / p1 + p2', 2);
+
+-- --------------------------------------------------------
+
+--
+-- Estrutura da tabela `componenteavaliacaoaluno`
+--
+
+DROP TABLE IF EXISTS `componenteavaliacaoaluno`;
+CREATE TABLE IF NOT EXISTS `componenteavaliacaoaluno` (
+  `valor` int(11) NOT NULL
+) ENGINE=MyISAM DEFAULT CHARSET=latin1;
+
+-- --------------------------------------------------------
+
+--
+-- Estrutura da tabela `componentesavaliacao`
+--
+
+DROP TABLE IF EXISTS `componentesavaliacao`;
+CREATE TABLE IF NOT EXISTS `componentesavaliacao` (
+  `componente` int(11) NOT NULL,
   `peso` int(11) NOT NULL
 ) ENGINE=MyISAM DEFAULT CHARSET=latin1;
 
