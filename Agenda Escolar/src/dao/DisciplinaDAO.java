@@ -58,7 +58,7 @@ public class DisciplinaDAO extends ModelDao<Disciplina> {
 		String sql = "insert into " + getModel().getTableName();
 
 		sql = sql.concat(" ( ");
-		sql = sql.concat(" nome,senha,tipo");
+		sql = sql.concat(" nome, codigo, id_professor, id_coordenador, id_curso");
 
 		sql = sql.concat(" ) ");
 
@@ -66,7 +66,7 @@ public class DisciplinaDAO extends ModelDao<Disciplina> {
 
 		sql = sql.concat(" ( ");
 
-		sql = sql.concat("?,?,?");
+		sql = sql.concat("?,?,?,?,?");
 
 		sql = sql.concat(" ) ");
 
@@ -76,6 +76,10 @@ public class DisciplinaDAO extends ModelDao<Disciplina> {
 
 			final PreparedStatement prepareStatement = openConnection.prepareStatement(sql);
 			prepareStatement.setString(1, model.getNome());
+			prepareStatement.setString(2, model.getCodigo());
+			prepareStatement.setString(3, String.valueOf(model.getProfessor().getId()));
+			prepareStatement.setString(4, String.valueOf(model.getCoordenador().getId()));
+			prepareStatement.setString(5, "0");
 			
 			prepareStatement.executeUpdate();
 

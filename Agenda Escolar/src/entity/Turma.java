@@ -1,12 +1,14 @@
 package entity;
 
+import java.util.ArrayList;
+
 public class Turma extends ModelAbstract{
 	private String tableName = "turma";
 	private String nome;
 	private String descricao;
 	private String horario;
-	private String professor;
-	private String aluno;
+	private Professor professor;
+	private ArrayList<Aluno> alunos;
 
 	@Override
 	public String getTableName() {
@@ -42,24 +44,28 @@ public class Turma extends ModelAbstract{
 		this.horario = horario;
 	}
 	
-	public String getProfessor() {
+	public Professor getProfessor() {
 		return professor;
 	}
 
-	public void setProfessor(String professor) {
+	public void setProfessor(Professor professor) {
 		this.professor = professor;
 	}
 	
-	public String getAluno() {
-		return aluno;
+	public ArrayList<Aluno> getAluno() {
+		return alunos;
 	}
 
-	public void setAluno(String aluno) {
-		this.aluno = aluno;
+	public void setAlunos(ArrayList<Aluno> alunos) {
+		this.alunos = alunos;
+	}
+	
+	public void addAluno(Aluno aluno) {
+		this.alunos.add(aluno);
 	}
 	
 	@Override
 	public String toString() {
-		return "Usuario [tableName=" + tableName + ", nome=" + nome + ", descricao=" + descricao + ", horario=" + horario + ", professor=" + professor +", aluno=" + aluno +"]";
+		return "";
 	}
 }

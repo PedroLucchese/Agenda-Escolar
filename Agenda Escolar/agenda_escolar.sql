@@ -1,11 +1,11 @@
 -- phpMyAdmin SQL Dump
--- version 5.0.2
+-- version 5.1.1
 -- https://www.phpmyadmin.net/
 --
--- Host: 127.0.0.1:3306
--- Tempo de geração: 03-Nov-2021 às 21:59
--- Versão do servidor: 5.7.31
--- versão do PHP: 7.3.21
+-- Host: localhost
+-- Generation Time: Nov 11, 2021 at 01:15 AM
+-- Server version: 10.6.4-MariaDB
+-- PHP Version: 8.0.11
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 START TRANSACTION;
@@ -18,48 +18,46 @@ SET time_zone = "+00:00";
 /*!40101 SET NAMES utf8mb4 */;
 
 --
--- Banco de dados: `agenda_escolar`
+-- Database: `agenda_escolar`
 --
 
 -- --------------------------------------------------------
 
 --
--- Estrutura da tabela `avaliacao`
+-- Table structure for table `avaliacao`
 --
 
-DROP TABLE IF EXISTS `avaliacao`;
-CREATE TABLE IF NOT EXISTS `avaliacao` (
+CREATE TABLE `avaliacao` (
+  `id` int(11) NOT NULL,
   `formula` varchar(60) NOT NULL,
   `numeroComponentes` int(11) NOT NULL
 ) ENGINE=MyISAM DEFAULT CHARSET=latin1;
 
 --
--- Extraindo dados da tabela `avaliacao`
+-- Dumping data for table `avaliacao`
 --
 
-INSERT INTO `avaliacao` (`formula`, `numeroComponentes`) VALUES
-('M = (n1 * p1 + n2 * p2) / p1 + p2', 2),
-('M = (n1 * p1 + n2 * p2) / p1 + p2', 2);
+INSERT INTO `avaliacao` (`id`, `formula`, `numeroComponentes`) VALUES
+(0, 'M = (n1 * p1 + n2 * p2) / p1 + p2', 2);
 
 -- --------------------------------------------------------
 
 --
--- Estrutura da tabela `componenteavaliacaoaluno`
+-- Table structure for table `componenteavaliacaoaluno`
 --
 
-DROP TABLE IF EXISTS `componenteavaliacaoaluno`;
-CREATE TABLE IF NOT EXISTS `componenteavaliacaoaluno` (
+CREATE TABLE `componenteavaliacaoaluno` (
+  `id` int(11) NOT NULL,
   `valor` int(11) NOT NULL
 ) ENGINE=MyISAM DEFAULT CHARSET=latin1;
 
 -- --------------------------------------------------------
 
 --
--- Estrutura da tabela `componentesavaliacao`
+-- Table structure for table `componentesavaliacao`
 --
 
-DROP TABLE IF EXISTS `componentesavaliacao`;
-CREATE TABLE IF NOT EXISTS `componentesavaliacao` (
+CREATE TABLE `componentesavaliacao` (
   `componente` int(11) NOT NULL,
   `peso` int(11) NOT NULL
 ) ENGINE=MyISAM DEFAULT CHARSET=latin1;
@@ -67,56 +65,59 @@ CREATE TABLE IF NOT EXISTS `componentesavaliacao` (
 -- --------------------------------------------------------
 
 --
--- Estrutura da tabela `curso`
+-- Table structure for table `curso`
 --
 
-DROP TABLE IF EXISTS `curso`;
-CREATE TABLE IF NOT EXISTS `curso` (
-  `id` int(11) NOT NULL AUTO_INCREMENT,
+CREATE TABLE `curso` (
+  `id` int(11) NOT NULL,
   `nome` varchar(40) NOT NULL,
   `nro_materias` int(11) DEFAULT NULL,
   `dt_inicio` date DEFAULT NULL,
-  `id_usuario` int(11) DEFAULT NULL,
-  PRIMARY KEY (`id`)
+  `id_usuario` int(11) DEFAULT NULL
 ) ENGINE=MyISAM DEFAULT CHARSET=latin1;
 
 -- --------------------------------------------------------
 
 --
--- Estrutura da tabela `disciplina`
+-- Table structure for table `disciplina`
 --
 
-DROP TABLE IF EXISTS `disciplina`;
-CREATE TABLE IF NOT EXISTS `disciplina` (
-  `id` int(11) NOT NULL AUTO_INCREMENT,
+CREATE TABLE `disciplina` (
+  `id` int(11) NOT NULL,
   `nome` varchar(40) NOT NULL,
-  `media` double DEFAULT NULL,
-  `total` double DEFAULT NULL,
+  `codigo` varchar(30) NOT NULL,
   `id_curso` int(11) NOT NULL,
-  `id_usuario` int(11) NOT NULL,
-  PRIMARY KEY (`id`)
+  `id_professor` int(11) NOT NULL,
+  `id_coordenador` int(11) NOT NULL
 ) ENGINE=MyISAM DEFAULT CHARSET=latin1;
+
+--
+-- Dumping data for table `disciplina`
+--
+
+INSERT INTO `disciplina` (`id`, `nome`, `codigo`, `id_curso`, `id_professor`, `id_coordenador`) VALUES
+(1, 'Disciplina teste', 'ads123', 0, 20, 22),
+(2, 'Disciplina teste', 'ads123', 0, 20, 22),
+(3, 'Disciplina teste 3', 'ads12345', 0, 20, 22);
 
 -- --------------------------------------------------------
 
 --
--- Estrutura da tabela `usuario`
+-- Table structure for table `usuario`
 --
 
-DROP TABLE IF EXISTS `usuario`;
-CREATE TABLE IF NOT EXISTS `usuario` (
-  `id` int(11) NOT NULL AUTO_INCREMENT,
+CREATE TABLE `usuario` (
+  `id` int(11) NOT NULL,
   `nome` varchar(300) COLLATE utf8mb4_unicode_ci NOT NULL,
   `email` varchar(100) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
   `id_curso` int(11) DEFAULT NULL,
   `id_disciplina` int(11) DEFAULT NULL,
   `tipo` int(11) NOT NULL,
-  `senha` varchar(200) COLLATE utf8mb4_unicode_ci NOT NULL,
-  PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=24 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+  `senha` varchar(200) COLLATE utf8mb4_unicode_ci NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 --
--- Extraindo dados da tabela `usuario`
+-- Dumping data for table `usuario`
 --
 
 INSERT INTO `usuario` (`id`, `nome`, `email`, `id_curso`, `id_disciplina`, `tipo`, `senha`) VALUES
@@ -124,6 +125,62 @@ INSERT INTO `usuario` (`id`, `nome`, `email`, `id_curso`, `id_disciplina`, `tipo
 (20, 'professor', NULL, NULL, NULL, 2, '123'),
 (22, 'Coordenador', NULL, NULL, NULL, 3, '123'),
 (23, 'Pedro', NULL, NULL, NULL, 1, '123');
+
+--
+-- Indexes for dumped tables
+--
+
+--
+-- Indexes for table `avaliacao`
+--
+ALTER TABLE `avaliacao`
+  ADD PRIMARY KEY (`id`);
+
+--
+-- Indexes for table `componenteavaliacaoaluno`
+--
+ALTER TABLE `componenteavaliacaoaluno`
+  ADD PRIMARY KEY (`id`);
+
+--
+-- Indexes for table `curso`
+--
+ALTER TABLE `curso`
+  ADD PRIMARY KEY (`id`);
+
+--
+-- Indexes for table `disciplina`
+--
+ALTER TABLE `disciplina`
+  ADD PRIMARY KEY (`id`);
+
+--
+-- Indexes for table `usuario`
+--
+ALTER TABLE `usuario`
+  ADD PRIMARY KEY (`id`);
+
+--
+-- AUTO_INCREMENT for dumped tables
+--
+
+--
+-- AUTO_INCREMENT for table `curso`
+--
+ALTER TABLE `curso`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+
+--
+-- AUTO_INCREMENT for table `disciplina`
+--
+ALTER TABLE `disciplina`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+
+--
+-- AUTO_INCREMENT for table `usuario`
+--
+ALTER TABLE `usuario`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=24;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;

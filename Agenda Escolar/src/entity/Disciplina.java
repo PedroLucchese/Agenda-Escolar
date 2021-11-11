@@ -3,7 +3,9 @@ package entity;
 public class Disciplina extends ModelAbstract{
 	private String tableName = "disciplina";
 	private String nome;
-	private int codigo;
+	private String codigo;
+	private Professor professor;
+	private Coordenador coordenador;
 
 	@Override
 	public String getTableName() {
@@ -23,12 +25,28 @@ public class Disciplina extends ModelAbstract{
 		this.nome = nome;
 	}
 
-	public int getCodigo() {
+	public String getCodigo() {
 		return codigo;
 	}
 
-	public void setCodigo(int codigo) {
+	public void setCodigo(String codigo) {
 		this.codigo = codigo;
+	}
+	
+	public Professor getProfessor() {
+		return professor;
+	}
+
+	public void setProfessor(Professor professor) {
+		this.professor = professor;
+	}
+	
+	public Coordenador getCoordenador() {
+		return coordenador;
+	}
+
+	public void setCoordenador(Coordenador coordenador) {
+		this.coordenador = coordenador;
 	}
 	
 	@Override
