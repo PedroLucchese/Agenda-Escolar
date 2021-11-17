@@ -6,9 +6,10 @@ public class Turma extends ModelAbstract{
 	private String tableName = "turma";
 	private String nome;
 	private String descricao;
-	private String horario;
+	private String horario; // Horário tá como VARCHAR(5) no banco pq é pra ser salvo como XX-XX. exemplo: 71-72
+	private Disciplina disciplina;
 	private Professor professor;
-	private ArrayList<Aluno> alunos;
+	private ArrayList<Integer> idAlunos;
 
 	@Override
 	public String getTableName() {
@@ -52,16 +53,24 @@ public class Turma extends ModelAbstract{
 		this.professor = professor;
 	}
 	
-	public ArrayList<Aluno> getAluno() {
-		return alunos;
+	public Disciplina getDisciplina() {
+		return disciplina;
 	}
 
-	public void setAlunos(ArrayList<Aluno> alunos) {
-		this.alunos = alunos;
+	public void setDisciplina(Disciplina disciplina) {
+		this.disciplina = disciplina;
 	}
 	
-	public void addAluno(Aluno aluno) {
-		this.alunos.add(aluno);
+	public ArrayList<Integer> getAlunos() {
+		return idAlunos;
+	}
+
+	public void setAlunos(ArrayList<Integer> alunos) {
+		this.idAlunos = alunos;
+	}
+	
+	public void addAluno(Integer idAluno) {
+		this.idAlunos.add(idAluno);
 	}
 	
 	@Override

@@ -3,6 +3,15 @@ package entity;
 public class Aluno extends Usuario{
 	private String tableName = "usuario";
 	private String matricula;
+	private Turma turma;
+	
+	public Aluno(Integer id, String nome) {
+		this.setId(id);
+		this.setNome(nome);
+	}
+
+	public Aluno() {
+	}
 	
 	@Override
 	public String getTableName() {
@@ -18,12 +27,20 @@ public class Aluno extends Usuario{
 		return matricula;
 	}
 
-	public void setNome(String matricula) {
+	public void setMatricula(String matricula) {
 		this.matricula = matricula;
+	}
+	
+	public Turma getTurma() {
+		return turma;
+	}
+
+	public void setTurma(Turma turma) {
+		this.turma = turma;
 	}
 	
 	@Override
 	public String toString() {
-		return "Usuario [tableName=" + tableName + ", matricula=" + matricula + "]";
+		return "Id: " + this.getId() + ", Nome: " + this.getNome();
 	}
 }

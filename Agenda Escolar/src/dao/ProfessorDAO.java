@@ -22,17 +22,17 @@ public class ProfessorDAO extends ModelDao<Professor> {
 
 	@Override
 	public List<Professor> findAll() {
-		final List<Professor> receitas = new ArrayList<Professor>();
+		final List<Professor> professores = new ArrayList<Professor>();
 
 		super.findAll(rs -> {
 			final Professor professor = (Professor) convertResultSet(rs);
 			
 			if (professor.getTipo().equals("2")) {
-				receitas.add(professor);
+				professores.add(professor);
 			}
 		});
 
-		return receitas;
+		return professores;
 	}
 
 	@Override

@@ -22,15 +22,15 @@ public class DisciplinaDAO extends ModelDao<Disciplina> {
 
 	@Override
 	public List<Disciplina> findAll() {
-		final List<Disciplina> receitas = new ArrayList<Disciplina>();
+		final List<Disciplina> disciplinas = new ArrayList<Disciplina>();
 
 		super.findAll(rs -> {
-			final Disciplina receita = (Disciplina) convertResultSet(rs);
+			final Disciplina disciplina = (Disciplina) convertResultSet(rs);
+			disciplinas.add(disciplina);
 			
-
 		});
 
-		return receitas;
+		return disciplinas;
 	}
 
 	@Override
@@ -137,10 +137,10 @@ public class DisciplinaDAO extends ModelDao<Disciplina> {
 	public Disciplina convertResultSet(ResultSet resultSet) {
 		final Disciplina model = new Disciplina();
 		try {
-
 			model.setId(resultSet.getInt("id"));
 			model.setNome(resultSet.getString("nome"));
-
+			model.setCodigo(resultSet.getString("codigo"));
+			
 		} catch (final SQLException e) {
 			e.printStackTrace();
 		}

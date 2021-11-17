@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: localhost
--- Generation Time: Nov 11, 2021 at 01:15 AM
+-- Generation Time: Nov 17, 2021 at 11:53 PM
 -- Server version: 10.6.4-MariaDB
 -- PHP Version: 8.0.11
 
@@ -98,7 +98,29 @@ CREATE TABLE `disciplina` (
 INSERT INTO `disciplina` (`id`, `nome`, `codigo`, `id_curso`, `id_professor`, `id_coordenador`) VALUES
 (1, 'Disciplina teste', 'ads123', 0, 20, 22),
 (2, 'Disciplina teste', 'ads123', 0, 20, 22),
-(3, 'Disciplina teste 3', 'ads12345', 0, 20, 22);
+(3, 'Disciplina teste 3', 'ads12345', 0, 20, 22),
+(4, 'Disciplina teste', 'ADS8001F', 0, 20, 22);
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `turma`
+--
+
+CREATE TABLE `turma` (
+  `id` int(11) NOT NULL,
+  `nome` varchar(200) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `horario` varchar(5) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `id_disciplina` bigint(20) NOT NULL,
+  `id_professor` bigint(11) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+--
+-- Dumping data for table `turma`
+--
+
+INSERT INTO `turma` (`id`, `nome`, `horario`, `id_disciplina`, `id_professor`) VALUES
+(6, 'Turma teste', '71-72', 3, 24);
 
 -- --------------------------------------------------------
 
@@ -112,6 +134,7 @@ CREATE TABLE `usuario` (
   `email` varchar(100) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
   `id_curso` int(11) DEFAULT NULL,
   `id_disciplina` int(11) DEFAULT NULL,
+  `id_turma` bigint(20) DEFAULT NULL,
   `tipo` int(11) NOT NULL,
   `senha` varchar(200) COLLATE utf8mb4_unicode_ci NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
@@ -120,11 +143,13 @@ CREATE TABLE `usuario` (
 -- Dumping data for table `usuario`
 --
 
-INSERT INTO `usuario` (`id`, `nome`, `email`, `id_curso`, `id_disciplina`, `tipo`, `senha`) VALUES
-(19, 'Aluno', NULL, NULL, NULL, 1, '123'),
-(20, 'professor', NULL, NULL, NULL, 2, '123'),
-(22, 'Coordenador', NULL, NULL, NULL, 3, '123'),
-(23, 'Pedro', NULL, NULL, NULL, 1, '123');
+INSERT INTO `usuario` (`id`, `nome`, `email`, `id_curso`, `id_disciplina`, `id_turma`, `tipo`, `senha`) VALUES
+(19, 'Aluno', NULL, NULL, NULL, 6, 1, '123'),
+(20, 'professor', NULL, NULL, NULL, 0, 2, '123'),
+(22, 'Coordenador', NULL, NULL, NULL, 0, 3, '123'),
+(23, 'Pedro', NULL, NULL, NULL, 6, 1, '123'),
+(24, 'Professor 2', NULL, NULL, NULL, NULL, 2, '123'),
+(25, 'Professor 3', NULL, NULL, NULL, NULL, 2, '123');
 
 --
 -- Indexes for dumped tables
@@ -155,6 +180,12 @@ ALTER TABLE `disciplina`
   ADD PRIMARY KEY (`id`);
 
 --
+-- Indexes for table `turma`
+--
+ALTER TABLE `turma`
+  ADD PRIMARY KEY (`id`);
+
+--
 -- Indexes for table `usuario`
 --
 ALTER TABLE `usuario`
@@ -174,13 +205,19 @@ ALTER TABLE `curso`
 -- AUTO_INCREMENT for table `disciplina`
 --
 ALTER TABLE `disciplina`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
+
+--
+-- AUTO_INCREMENT for table `turma`
+--
+ALTER TABLE `turma`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
 
 --
 -- AUTO_INCREMENT for table `usuario`
 --
 ALTER TABLE `usuario`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=24;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=26;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;

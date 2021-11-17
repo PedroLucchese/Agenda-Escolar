@@ -22,15 +22,17 @@ public class AlunoDAO extends ModelDao<Aluno> {
 
 	@Override
 	public List<Aluno> findAll() {
-		final List<Aluno> receitas = new ArrayList<Aluno>();
+		final List<Aluno> alunos = new ArrayList<Aluno>();
 
 		super.findAll(rs -> {
-			final Aluno receita = convertResultSet(rs);
+			final Aluno aluno = convertResultSet(rs);
 			
-
+			if (aluno.getTipo().equals("1")) {
+				alunos.add(aluno);
+			}
 		});
 
-		return receitas;
+		return alunos;
 	}
 
 	@Override
@@ -89,6 +91,27 @@ public class AlunoDAO extends ModelDao<Aluno> {
 			se.printStackTrace();
 		}
 
+	}
+	
+	public void updateTurma(Aluno model) {
+		String sql = "update " + getModel().getTableName() + " SET id_turma = ? WHERE id = ?";
+		
+		try {
+
+			final Connection openConnection = super.getConnection();
+
+			final PreparedStatement prepareStatement = openConnection.prepareStatement(sql);
+			prepareStatement.setInt(1, model.getTurma().getId());
+			prepareStatement.setInt(2, model.getId());
+			
+			prepareStatement.executeUpdate();
+
+			prepareStatement.close();
+
+		} catch (final SQLException se) {
+			System.out.println("Não foi poss�vel conectar ao Banco de Dados");
+			se.printStackTrace();
+		}
 	}
 
 	@Override

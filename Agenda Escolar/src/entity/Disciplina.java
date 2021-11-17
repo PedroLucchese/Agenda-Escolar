@@ -7,6 +7,20 @@ public class Disciplina extends ModelAbstract{
 	private Professor professor;
 	private Coordenador coordenador;
 
+	public Disciplina(Integer id, String nome) {
+		this.setId(id);
+		this.setNome(nome);
+	}
+	
+	public Disciplina(Integer id, String nome, String codigo) {
+		this.setId(id);
+		this.setNome(nome);
+		this.setCodigo(codigo);
+	}
+
+	public Disciplina() {
+	}
+	
 	@Override
 	public String getTableName() {
 		return tableName;
@@ -51,6 +65,6 @@ public class Disciplina extends ModelAbstract{
 	
 	@Override
 	public String toString() {
-		return "Usuario [tableName=" + tableName + ", nome=" + nome + ", codigo=" + codigo + "]";
+		return "Id: " + this.getId() + ", Nome: " + this.getNome() + ", Código: " + this.getCodigo();
 	}
 }

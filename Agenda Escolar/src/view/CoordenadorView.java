@@ -43,23 +43,22 @@ public class CoordenadorView extends JFrame implements ActionListener {
 	private JPanel fundo, botoes, campos;
 	private JLabel lblDisciplina, lblProfessor, lblCodigo;
 	
-	private JTextField tDisciplina, tAluno, tCodigo;
+	private JTextField tDisciplina, tCodigo;
 
 	private JScrollPane rolagem;
-	private JList tableProfessores;
-	private DefaultListModel modelo = new DefaultListModel();
+	private JList listProfessores;
+	private DefaultListModel modeloProfessor;
 	
 	private Coordenador coordenador;
 
 	private void init() {
-
 		this.setTitle("Cadastro de disciplina");
 		this.setSize(900, 500);
-
-		criaJTable();
+		
+		modeloProfessor = new DefaultListModel();
+		criaJList();
 		
 		tDisciplina = new JTextField("");
-		tAluno = new JTextField("");
 		tCodigo = new JTextField("");
 
 		bCadastra = new JButton("Cadastrar disciplina");
@@ -77,7 +76,7 @@ public class CoordenadorView extends JFrame implements ActionListener {
 
 		campos.setLayout(null);
 		
-		rolagem = new JScrollPane(tableProfessores);
+		rolagem = new JScrollPane(listProfessores);
 		
 		lblDisciplina = new JLabel("Nome da disciplina:");
 		lblProfessor = new JLabel("Professor:");
@@ -130,13 +129,11 @@ public class CoordenadorView extends JFrame implements ActionListener {
 	}
 
 	private void acaoVoltar() {
-
 		new InicialView(connection).setVisible(true);
 		this.dispose();
 	}
 
 	private void acaoCadastra() {
-		
 		final DisciplinaDAO disciplinaDao = new DisciplinaDAO(connection);
 		final ProfessorDAO professorDao = new ProfessorDAO(connection);
 		final CoordenadorDAO coordenadorDao = new CoordenadorDAO(connection);
@@ -156,31 +153,25 @@ public class CoordenadorView extends JFrame implements ActionListener {
 		
 		disciplinaDao.saveOrUpdate(disciplina);
 		JOptionPane.showMessageDialog(this, "Disciplina cadastrada com sucesso!");
-
-		//new NavegaView(usuario, connection).setVisible(true);
-		//this.dispose();
-		
 	}
 	
 	private int getIdProfessor() {
-		Matcher matcher = Pattern.compile("\\d+").matcher(tableProfessores.getSelectedValue().toString());
+		Matcher matcher = Pattern.compile("\\d+").matcher(listProfessores.getSelectedValue().toString());
 		matcher.find();
 		return Integer.valueOf(matcher.group());
 	}
 	
 	private void acaoCadastrarTurma() {
-		
-		new CadastrarTurmaView(connection).setVisible(true);
+		new CadastrarTurmaView(connection, coordenador).setVisible(true);
 		this.dispose();
 	}
 	
-	private void criaJTable() {
-		tableProfessores = new JList(modelo);
-		pesquisar(modelo);
+	private void criaJList() {
+		listProfessores = new JList(modeloProfessor);
+		pesquisarProfessor(modeloProfessor);
 	}
 
-	private void pesquisar(DefaultListModel modelo) {
-		
+	private void pesquisarProfessor(DefaultListModel modelo) {
 		ProfessorDAO professorDAO = new ProfessorDAO(connection);
 		
 		for (Professor professor : professorDAO.findAll()) {
@@ -199,7 +190,6 @@ public class CoordenadorView extends JFrame implements ActionListener {
 		} else if (e.getSource().equals(bCadastrarTurma)) {
 			this.acaoCadastrarTurma();
 		}
-
 	}
 
 	public Coordenador getCoordenador() {
