@@ -1,10 +1,19 @@
 package entity;
 
 public class ComponenteAvaliacao extends ModelAbstract{
-	private String tableName = "componenteAvaliacao";
-	private String nomeVar;
-	private String peso;
+	private String tableName = "componentesavaliacao";
+	private String componente;
+	private int peso;
+	private int idAvaliacao;
+	private int idTurma;
 	
+	public ComponenteAvaliacao(Integer id, int idAvaliacao) {
+		this.setId(id);
+		this.setIdAvaliacao(idAvaliacao);
+	}
+	
+	public ComponenteAvaliacao() {}
+
 	@Override
 	public String getTableName() {
 		return tableName;
@@ -15,24 +24,40 @@ public class ComponenteAvaliacao extends ModelAbstract{
 		this.tableName = tableName;
 	}
 
-	public String getNomeVar() {
-		return nomeVar;
+	public String getComponente() {
+		return componente;
 	}
 
-	public void setNomeVar(String nome) {
-		this.nomeVar = nomeVar;
+	public void setComponente(String componente) {
+		this.componente = componente;
 	}
 	
-	public String getPeso() {
+	public int getPeso() {
 		return peso;
 	}
 
-	public void setPeso(String peso) {
+	public void setPeso(int peso) {
 		this.peso = peso;
+	}
+	
+	public int getIdAvaliacao() {
+		return idAvaliacao;
+	}
+
+	public void setIdAvaliacao(int idAvaliacao) {
+		this.idAvaliacao = idAvaliacao;
+	}
+	
+	public int getIdTurma() {
+		return idTurma;
+	}
+
+	public void setIdTurma(int idTurma) {
+		this.idTurma = idTurma;
 	}
 	
 	@Override
 	public String toString() {
-		return "Usuario [tableName=" + tableName + ", nomeVar=" + nomeVar + ", peso=" + peso + "]";
+		return "Usuario [tableName=" + tableName + ", componente=" + componente + ", peso=" + peso + "]";
 	}
 }

@@ -11,6 +11,13 @@ public class Turma extends ModelAbstract{
 	private Professor professor;
 	private ArrayList<Integer> idAlunos;
 
+	public Turma(Integer id, String nome) {
+		this.setNome(nome);
+		this.setId(id);
+	}
+	
+	public Turma() {}
+
 	@Override
 	public String getTableName() {
 		return tableName;
@@ -75,6 +82,6 @@ public class Turma extends ModelAbstract{
 	
 	@Override
 	public String toString() {
-		return "";
+		return "Id: " + this.getId() + ", Nome: " + this.getNome();
 	}
 }

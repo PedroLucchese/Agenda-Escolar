@@ -24,7 +24,7 @@ import entity.Usuario;
 public class ProfessorView extends JFrame implements ActionListener {
 	Connection connection;
 
-	private JButton bCadastra, bVolta, bLimpa;
+	private JButton bCadastra, bCadastraModoAvaliacao, bVolta, bLimpa;
 	private JPanel fundo, botoes, campos;
 
 	private JTextField tMateria, tAluno, tNota1, tNota2, tNota3;
@@ -44,6 +44,8 @@ public class ProfessorView extends JFrame implements ActionListener {
 
 		bCadastra = new JButton("Cadastrar");
 		bCadastra.addActionListener(this);
+		bCadastraModoAvaliacao = new JButton("Cadastrar modo de avaliação");
+		bCadastraModoAvaliacao.addActionListener(this);
 		bVolta = new JButton("Voltar");
 		bVolta.addActionListener(this);
 		bLimpa = new JButton("Limpar tudo");
@@ -53,7 +55,7 @@ public class ProfessorView extends JFrame implements ActionListener {
 		fundo = new JPanel(new BorderLayout());
 		botoes = new JPanel(new FlowLayout());
 
-		campos.add(new JLabel("Materia:"));
+		campos.add(new JLabel("Disciplina:"));
 		campos.add(tMateria);
 		campos.add(new JLabel("Id do aluno:"));
 		campos.add(tAluno);
@@ -65,6 +67,7 @@ public class ProfessorView extends JFrame implements ActionListener {
 		campos.add(tNota3);
 
 		botoes.add(bCadastra);
+		botoes.add(bCadastraModoAvaliacao);
 		botoes.add(bVolta);
 		botoes.add(bLimpa);
 
@@ -121,6 +124,12 @@ public class ProfessorView extends JFrame implements ActionListener {
 
 		
 	}
+	
+	private void acaoAbrirCadastroModoAvaliacao() {
+		
+		new ModoAvaliacaoView(connection, professor).setVisible(true);
+		this.dispose();
+	}
 
 	@Override
 	public void actionPerformed(ActionEvent e) {
@@ -130,6 +139,8 @@ public class ProfessorView extends JFrame implements ActionListener {
 			this.acaoVoltar();
 		} else if (e.getSource().equals(bLimpa)) {
 			this.acaoLimpar();
+		} else if (e.getSource().equals(bCadastraModoAvaliacao)) {
+			this.acaoAbrirCadastroModoAvaliacao();
 		}
 
 	}

@@ -30,6 +30,21 @@ public class TurmaDAO extends ModelDao<Turma> {
 
 		return turmas;
 	}
+	
+	public List<Turma> findByProfessorId(int professorId) {
+		final List<Turma> turmas = new ArrayList<Turma>();
+		final Map<String, Integer> params = new HashMap<String, Integer>();
+		
+		params.put("id_professor", professorId);
+		
+		super.findByInt(params, rs -> {
+			final Turma turma = (Turma) convertResultSet(rs);
+			
+			turmas.add(turma);
+		});
+		
+		return turmas;
+	}
 
 	@Override
 	public Turma findById(Integer id) {

@@ -2,9 +2,15 @@ package entity;
 
 public class Avaliacao extends ModelAbstract{
 	private String tableName = "avaliacao";
-	private String nome;
-	private String descricao;
 	private String formula;
+	private int nroComponentes;
+
+	public Avaliacao(Integer id, String formula) {
+		this.setId(id);
+		this.setFormula(formula);
+	}
+	
+	public Avaliacao() {}
 
 	@Override
 	public String getTableName() {
@@ -16,20 +22,12 @@ public class Avaliacao extends ModelAbstract{
 		this.tableName = tableName;
 	}
 
-	public String getNome() {
-		return nome;
+	public int getNumeroComponentes() {
+		return nroComponentes;
 	}
 
-	public void setNome(String nome) {
-		this.nome = nome;
-	}
-
-	public String getDescricao() {
-		return descricao;
-	}
-
-	public void setDescricao(String descricao) {
-		this.descricao = descricao;
+	public void setNumeroComponentes(int nroComponentes) {
+		this.nroComponentes = nroComponentes;
 	}
 
 	public String getFormula() {
@@ -43,6 +41,6 @@ public class Avaliacao extends ModelAbstract{
 
 	@Override
 	public String toString() {
-		return "Usuario [tableName=" + tableName + ", nome=" + nome + ", descricao=" + descricao + ", formula=" + formula + "]";
+		return "Id: " + this.getId() + ", " + this.getFormula();
 	}
 }
