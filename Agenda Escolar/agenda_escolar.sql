@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: localhost
--- Generation Time: Nov 30, 2021 at 02:36 AM
+-- Generation Time: Dec 02, 2021 at 02:07 AM
 -- Server version: 10.6.5-MariaDB
 -- PHP Version: 8.0.12
 
@@ -71,8 +71,12 @@ CREATE TABLE `componentesavaliacao` (
 --
 
 INSERT INTO `componentesavaliacao` (`id`, `id_avaliacao`, `componente`, `peso`, `id_turma`) VALUES
+(7, 0, 'n1', 10, 9),
 (6, 0, 'n2', 10, 6),
-(5, 0, 'n1', 10, 6);
+(5, 0, 'n1', 10, 6),
+(8, 0, 'n2', 10, 9),
+(9, 0, 'n1', 10, 10),
+(10, 0, 'n2', 10, 10);
 
 -- --------------------------------------------------------
 
@@ -132,7 +136,28 @@ CREATE TABLE `turma` (
 --
 
 INSERT INTO `turma` (`id`, `nome`, `horario`, `id_disciplina`, `id_professor`) VALUES
-(6, 'Turma teste', '71-72', 3, 24);
+(9, 'Turma teste 2', '57-58', 2, 24),
+(10, 'Turma teste', '71-72', 3, 24);
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `turmaAluno`
+--
+
+CREATE TABLE `turmaAluno` (
+  `id` int(11) NOT NULL,
+  `id_turma` int(11) NOT NULL,
+  `id_aluno` int(11) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+--
+-- Dumping data for table `turmaAluno`
+--
+
+INSERT INTO `turmaAluno` (`id`, `id_turma`, `id_aluno`) VALUES
+(1, 9, 19),
+(4, 10, 23);
 
 -- --------------------------------------------------------
 
@@ -146,7 +171,6 @@ CREATE TABLE `usuario` (
   `email` varchar(100) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
   `id_curso` int(11) DEFAULT NULL,
   `id_disciplina` int(11) DEFAULT NULL,
-  `id_turma` bigint(20) DEFAULT NULL,
   `tipo` int(11) NOT NULL,
   `senha` varchar(200) COLLATE utf8mb4_unicode_ci NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
@@ -155,13 +179,13 @@ CREATE TABLE `usuario` (
 -- Dumping data for table `usuario`
 --
 
-INSERT INTO `usuario` (`id`, `nome`, `email`, `id_curso`, `id_disciplina`, `id_turma`, `tipo`, `senha`) VALUES
-(19, 'Aluno', NULL, NULL, NULL, 6, 1, '123'),
-(20, 'professor', NULL, NULL, NULL, 0, 2, '123'),
-(22, 'Coordenador', NULL, NULL, NULL, 0, 3, '123'),
-(23, 'Pedro', NULL, NULL, NULL, 6, 1, '123'),
-(24, 'Professor 2', NULL, NULL, NULL, NULL, 2, '123'),
-(25, 'Professor 3', NULL, NULL, NULL, NULL, 2, '123');
+INSERT INTO `usuario` (`id`, `nome`, `email`, `id_curso`, `id_disciplina`, `tipo`, `senha`) VALUES
+(19, 'Aluno', NULL, NULL, NULL, 1, '123'),
+(20, 'professor', NULL, NULL, NULL, 2, '123'),
+(22, 'Coordenador', NULL, NULL, NULL, 3, '123'),
+(23, 'Pedro', NULL, NULL, NULL, 1, '123'),
+(24, 'Professor 2', NULL, NULL, NULL, 2, '123'),
+(25, 'Professor 3', NULL, NULL, NULL, 2, '123');
 
 --
 -- Indexes for dumped tables
@@ -204,6 +228,12 @@ ALTER TABLE `turma`
   ADD PRIMARY KEY (`id`);
 
 --
+-- Indexes for table `turmaAluno`
+--
+ALTER TABLE `turmaAluno`
+  ADD PRIMARY KEY (`id`);
+
+--
 -- Indexes for table `usuario`
 --
 ALTER TABLE `usuario`
@@ -217,7 +247,7 @@ ALTER TABLE `usuario`
 -- AUTO_INCREMENT for table `componentesavaliacao`
 --
 ALTER TABLE `componentesavaliacao`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=11;
 
 --
 -- AUTO_INCREMENT for table `curso`
@@ -235,7 +265,13 @@ ALTER TABLE `disciplina`
 -- AUTO_INCREMENT for table `turma`
 --
 ALTER TABLE `turma`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=11;
+
+--
+-- AUTO_INCREMENT for table `turmaAluno`
+--
+ALTER TABLE `turmaAluno`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
 
 --
 -- AUTO_INCREMENT for table `usuario`
