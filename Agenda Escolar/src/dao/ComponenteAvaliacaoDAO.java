@@ -33,6 +33,21 @@ public class ComponenteAvaliacaoDAO extends ModelDao<ComponenteAvaliacao> {
 		return receitas;
 	}
 
+	public List<ComponenteAvaliacao> findByTurmaId(int idTurma) {
+		final List<ComponenteAvaliacao> receitas = new ArrayList<ComponenteAvaliacao>();
+		final Map<String, Integer> params = new HashMap<String, Integer>();
+		
+		params.put("id_turma", idTurma);
+		
+		super.findByInt(params, rs -> {
+			final ComponenteAvaliacao receita = (ComponenteAvaliacao) convertResultSet(rs);
+			
+			receitas.add(receita);
+		});
+
+		return receitas;
+	}
+	
 	@Override
 	public ComponenteAvaliacao findById(Integer id) {
 		final ComponenteAvaliacao model = new ComponenteAvaliacao();
@@ -105,7 +120,7 @@ public class ComponenteAvaliacaoDAO extends ModelDao<ComponenteAvaliacao> {
 
 		map.put("id_avaliacao", String.valueOf(model.getIdAvaliacao()));
 		map.put("componente", model.getComponente());
-		map.put("peso", model.getPeso());
+		map.put("peso", Integer.toString(model.getPeso()));
 
 		super.findLike(map, rs -> {
 			final ComponenteAvaliacao receita = convertResultSet(rs);
@@ -126,7 +141,7 @@ public class ComponenteAvaliacaoDAO extends ModelDao<ComponenteAvaliacao> {
 
 		map.put("id_avaliacao", String.valueOf(model.getIdAvaliacao()));
 		map.put("componente", model.getComponente());
-		map.put("peso", model.getPeso());
+		map.put("peso", Integer.toString(model.getPeso()));
 		
 		super.findByString(map, rs -> {
 			final ComponenteAvaliacao usuario = convertResultSet(rs);
@@ -147,7 +162,7 @@ public class ComponenteAvaliacaoDAO extends ModelDao<ComponenteAvaliacao> {
 			model.setId(resultSet.getInt("id"));
 			model.setIdAvaliacao(resultSet.getInt("id_avaliacao"));
 			model.setComponente(resultSet.getString("componente"));
-			model.setPeso(resultSet.getString("peso"));
+			model.setPeso(resultSet.getInt("peso"));
 
 		} catch (final SQLException e) {
 			e.printStackTrace();

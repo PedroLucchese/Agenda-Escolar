@@ -34,6 +34,23 @@ public class AlunoDAO extends ModelDao<Aluno> {
 
 		return alunos;
 	}
+	
+	public List<Aluno> findByTurmaId(Integer idTurma) {
+		final List<Aluno> alunos = new ArrayList<Aluno>();
+		final Map<String, Integer> params = new HashMap<String, Integer>();
+		
+		params.put("id_turma", idTurma);
+		
+		super.findByInt(params, rs -> {
+			final Aluno aluno = convertResultSet(rs);
+			
+			if (aluno.getTipo().equals("1")) {
+				alunos.add(aluno);
+			}
+		});
+		
+		return alunos;
+	}
 
 	@Override
 	public Aluno findById(Integer id) {

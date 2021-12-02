@@ -124,7 +124,7 @@ public class ModoAvaliacaoView extends JFrame implements ActionListener {
 	}
 
 	private void acaoVoltar() {
-		new InicialView(connection).setVisible(true);
+		new ProfessorView(professor, connection).setVisible(true);
 		this.dispose();
 	}
 	
@@ -169,8 +169,6 @@ public class ModoAvaliacaoView extends JFrame implements ActionListener {
 	private void setComponentsBounds() {
 		lblTurmas.setBounds(100, 50, 200, 100);
 		lblModoAvaliacao.setBounds(100, 250, 200, 100);
-		//lblProfessor.setBounds(100, 150, 200, 100);
-		//tDisciplina.setBounds(230, 85, 300, 30);
 		rolagemTurmas.setBounds(230, 10, 350, 200);
 		rolagemModoAvaliacao.setBounds(230, 225, 350, 200);
 	}

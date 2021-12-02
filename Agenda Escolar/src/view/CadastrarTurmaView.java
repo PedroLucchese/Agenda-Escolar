@@ -23,12 +23,14 @@ import dao.AlunoDAO;
 import dao.CoordenadorDAO;
 import dao.DisciplinaDAO;
 import dao.ProfessorDAO;
+import dao.TurmaAlunoDAO;
 import dao.TurmaDAO;
 import entity.Aluno;
 import entity.Coordenador;
 import entity.Disciplina;
 import entity.Professor;
 import entity.Turma;
+import entity.TurmaAluno;
 
 public class CadastrarTurmaView extends JFrame implements ActionListener {
 	Connection connection;
@@ -213,10 +215,12 @@ public class CadastrarTurmaView extends JFrame implements ActionListener {
 		final TurmaDAO turmaDAO = new TurmaDAO(connection);
 		final AlunoDAO alunoDAO = new AlunoDAO(connection);
 		final DisciplinaDAO disciplinaDAO = new DisciplinaDAO(connection);
+		final TurmaAlunoDAO turmaAlunoDAO = new TurmaAlunoDAO(connection);
 		
 		Professor professor;
 		Disciplina disciplina;
 		Turma turma = new Turma();
+		TurmaAluno turmaAluno = new TurmaAluno();
 		
 		turma.setNome(tNome.getText());
 		turma.setDescricao(tDescricao.getText());
@@ -232,11 +236,11 @@ public class CadastrarTurmaView extends JFrame implements ActionListener {
 		turmaDAO.saveOrUpdate(turma);
 		turma.setId(turmaDAO.find(turma).getId());
 		
+		turmaAluno.setIdTurma(turma.getId());
+		
 		 for (int idAluno : getIdsAlunos()) {
-			Aluno aluno = alunoDAO.findById(idAluno);
-			
-			aluno.setTurma(turma);
-			alunoDAO.updateTurma(aluno);
+			turmaAluno.setIdAluno(idAluno);
+			turmaAlunoDAO.saveOrUpdate(turmaAluno);
 		}
 		
 		JOptionPane.showMessageDialog(this, "Turma cadastrada com sucesso!");
