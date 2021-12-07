@@ -54,10 +54,11 @@ public class ProfessorView extends JFrame implements ActionListener, ListSelecti
 
 	private ArrayList<ComponenteAvaliacao> listComponentes;
 	private ArrayList<JTextField> tNotas;
+	private ArrayList<JLabel> lblNotas;
 	
 	private void init() {
 
-		this.setTitle("Cadastro");
+		this.setTitle("Cadastro de notas");
 		this.setSize(900, 900);
 
 		modeloTurmas = new DefaultListModel();
@@ -66,8 +67,10 @@ public class ProfessorView extends JFrame implements ActionListener, ListSelecti
 		
 		listComponentes = new ArrayList<ComponenteAvaliacao>();
 		tNotas = new ArrayList<JTextField>();
+		lblNotas = new ArrayList<JLabel>();
 		
 		listaTurmas.addListSelectionListener(this);
+		listaAlunos.addListSelectionListener(this);
 		
 		bCadastra = new JButton("Cadastrar");
 		bCadastra.addActionListener(this);
@@ -165,14 +168,13 @@ public class ProfessorView extends JFrame implements ActionListener, ListSelecti
 		this.dispose();
 	}
 	
-	private void criaTextFieldNotas() {
+	private void criaTextFieldLabelNotas() {
 		
 		ComponenteAvaliacaoDAO componentesAvaliacaoDAO = new ComponenteAvaliacaoDAO(connection);
 		int lblVar, tVar;
 		
 		lblVar = 500;
 		tVar = 525;
-		
 		
 		for (ComponenteAvaliacao componenteAvaliacao : componentesAvaliacaoDAO.findByTurmaId(getIdTurma())) {
 			JTextField tNota = new JTextField();
@@ -187,6 +189,7 @@ public class ProfessorView extends JFrame implements ActionListener, ListSelecti
 			campos.add(tNota);
 			campos.add(lblNota);
 			tNotas.add(tNota);
+			lblNotas.add(lblNota);
 			listComponentes.add(componenteAvaliacao);
 		}
 		
@@ -195,7 +198,20 @@ public class ProfessorView extends JFrame implements ActionListener, ListSelecti
 		fundo.add(campos, BorderLayout.CENTER);
 
 		this.getContentPane().add(fundo);
+	}
+	
+	private void limpaTextFieldNotas() {
+		for (JTextField tNota : tNotas) {
+			campos.remove(tNota);
+		}
 		
+		for (JLabel lblNota : lblNotas) {
+			campos.remove(lblNota);
+		}
+		
+		tNotas = new ArrayList<JTextField>();
+		lblNotas = new ArrayList<JLabel>();
+		listComponentes = new ArrayList<ComponenteAvaliacao>();
 	}
 	
 	private void criaJListAlunos() {
@@ -266,9 +282,17 @@ public class ProfessorView extends JFrame implements ActionListener, ListSelecti
 	@Override
 	public void valueChanged(ListSelectionEvent e) {
 		if (e.getSource().equals(listaTurmas)) {
-			modeloAlunos.removeAllElements();
-			criaTextFieldNotas();
-			pesquisarAlunos(modeloAlunos);
+			if (e.getValueIsAdjusting()) {
+				limpaTextFieldNotas();
+				modeloAlunos.removeAllElements();
+				criaTextFieldLabelNotas();
+				pesquisarAlunos(modeloAlunos);
+			}
+		}
+		
+		if (e.getSource().equals(listaAlunos)) {
+			limpaTextFieldNotas();
+			criaTextFieldLabelNotas();
 		}
 	}
 }

@@ -41,7 +41,7 @@ public class ComponenteAvaliacaoDAO extends ModelDao<ComponenteAvaliacao> {
 		
 		super.findByInt(params, rs -> {
 			final ComponenteAvaliacao receita = (ComponenteAvaliacao) convertResultSet(rs);
-			
+
 			receitas.add(receita);
 		});
 

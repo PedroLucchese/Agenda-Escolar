@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: localhost
--- Generation Time: Dec 02, 2021 at 02:07 AM
+-- Generation Time: Dec 07, 2021 at 09:14 PM
 -- Server version: 10.6.5-MariaDB
 -- PHP Version: 8.0.12
 
@@ -38,7 +38,7 @@ CREATE TABLE `avaliacao` (
 --
 
 INSERT INTO `avaliacao` (`id`, `formula`, `numeroComponentes`) VALUES
-(0, 'M = (n1 * p1 + n2 * p2) / p1 + p2', 2);
+(0, '(n1 * p1 + n2 * p2) / (p1 + p2)', 2);
 
 -- --------------------------------------------------------
 
@@ -48,9 +48,23 @@ INSERT INTO `avaliacao` (`id`, `formula`, `numeroComponentes`) VALUES
 
 CREATE TABLE `componenteavaliacaoaluno` (
   `id` int(11) NOT NULL,
-  `id_avaliacao` int(11) NOT NULL,
+  `id_componente` int(11) NOT NULL,
+  `id_aluno` int(11) NOT NULL,
+  `id_turma` int(11) NOT NULL,
   `valor` int(11) NOT NULL
 ) ENGINE=MyISAM DEFAULT CHARSET=latin1;
+
+--
+-- Dumping data for table `componenteavaliacaoaluno`
+--
+
+INSERT INTO `componenteavaliacaoaluno` (`id`, `id_componente`, `id_aluno`, `id_turma`, `valor`) VALUES
+(25, 13, 19, 9, 9),
+(24, 14, 19, 9, 7),
+(23, 16, 19, 11, 10),
+(22, 15, 19, 11, 0),
+(21, 16, 26, 11, 5),
+(20, 15, 26, 11, 4);
 
 -- --------------------------------------------------------
 
@@ -71,12 +85,12 @@ CREATE TABLE `componentesavaliacao` (
 --
 
 INSERT INTO `componentesavaliacao` (`id`, `id_avaliacao`, `componente`, `peso`, `id_turma`) VALUES
-(7, 0, 'n1', 10, 9),
-(6, 0, 'n2', 10, 6),
-(5, 0, 'n1', 10, 6),
-(8, 0, 'n2', 10, 9),
-(9, 0, 'n1', 10, 10),
-(10, 0, 'n2', 10, 10);
+(14, 0, 'n2', 10, 9),
+(15, 0, 'n1', 10, 11),
+(13, 0, 'n1', 10, 9),
+(12, 0, 'n2', 10, 10),
+(11, 0, 'n1', 10, 10),
+(16, 0, 'n2', 10, 11);
 
 -- --------------------------------------------------------
 
@@ -137,7 +151,8 @@ CREATE TABLE `turma` (
 
 INSERT INTO `turma` (`id`, `nome`, `horario`, `id_disciplina`, `id_professor`) VALUES
 (9, 'Turma teste 2', '57-58', 2, 24),
-(10, 'Turma teste', '71-72', 3, 24);
+(10, 'Turma teste', '71-72', 3, 24),
+(11, 'Turma Teste 3', '57-58', 2, 24);
 
 -- --------------------------------------------------------
 
@@ -157,7 +172,10 @@ CREATE TABLE `turmaAluno` (
 
 INSERT INTO `turmaAluno` (`id`, `id_turma`, `id_aluno`) VALUES
 (1, 9, 19),
-(4, 10, 23);
+(4, 10, 23),
+(5, 11, 19),
+(6, 11, 23),
+(7, 11, 26);
 
 -- --------------------------------------------------------
 
@@ -185,7 +203,8 @@ INSERT INTO `usuario` (`id`, `nome`, `email`, `id_curso`, `id_disciplina`, `tipo
 (22, 'Coordenador', NULL, NULL, NULL, 3, '123'),
 (23, 'Pedro', NULL, NULL, NULL, 1, '123'),
 (24, 'Professor 2', NULL, NULL, NULL, 2, '123'),
-(25, 'Professor 3', NULL, NULL, NULL, 2, '123');
+(25, 'Professor 3', NULL, NULL, NULL, 2, '123'),
+(26, 'Aluno 3', NULL, NULL, NULL, 1, '123');
 
 --
 -- Indexes for dumped tables
@@ -244,10 +263,16 @@ ALTER TABLE `usuario`
 --
 
 --
+-- AUTO_INCREMENT for table `componenteavaliacaoaluno`
+--
+ALTER TABLE `componenteavaliacaoaluno`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=26;
+
+--
 -- AUTO_INCREMENT for table `componentesavaliacao`
 --
 ALTER TABLE `componentesavaliacao`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=11;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=17;
 
 --
 -- AUTO_INCREMENT for table `curso`
@@ -265,19 +290,19 @@ ALTER TABLE `disciplina`
 -- AUTO_INCREMENT for table `turma`
 --
 ALTER TABLE `turma`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=11;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=12;
 
 --
 -- AUTO_INCREMENT for table `turmaAluno`
 --
 ALTER TABLE `turmaAluno`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
 
 --
 -- AUTO_INCREMENT for table `usuario`
 --
 ALTER TABLE `usuario`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=26;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=27;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;

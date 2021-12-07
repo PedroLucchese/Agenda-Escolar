@@ -48,6 +48,21 @@ public class TurmaAlunoDAO extends ModelDao<TurmaAluno> {
 
 		return receitas;
 	}
+	
+	public List<TurmaAluno> findByAlunoId(int idAluno) {
+		final List<TurmaAluno> receitas = new ArrayList<TurmaAluno>();
+		final Map<String, Integer> params = new HashMap<String, Integer>();
+		
+		params.put("id_aluno", idAluno);
+		
+		super.findByInt(params, rs -> {
+			final TurmaAluno receita = (TurmaAluno) convertResultSet(rs);
+			
+			receitas.add(receita);
+		});
+
+		return receitas;
+	}
 
 	@Override
 	public TurmaAluno findById(Integer id) {

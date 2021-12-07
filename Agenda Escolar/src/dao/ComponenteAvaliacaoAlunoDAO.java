@@ -9,6 +9,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import entity.ComponenteAvaliacao;
 import entity.ComponenteAvaliacaoAluno;
 import entity.Coordenador;
 import entity.Usuario;
@@ -38,6 +39,43 @@ public class ComponenteAvaliacaoAlunoDAO extends ModelDao<ComponenteAvaliacaoAlu
 		final Map<String, Integer> params = new HashMap<String, Integer>();
 		
 		params.put("id_turma", idTurma);
+		
+		super.findByInt(params, rs -> {
+			final ComponenteAvaliacaoAluno receita = (ComponenteAvaliacaoAluno) convertResultSet(rs);
+			
+			receitas.add(receita);
+		});
+
+		return receitas;
+	}
+	
+	public List<ComponenteAvaliacaoAluno> findNotas(ArrayList<ComponenteAvaliacao> componentes, Integer idAluno, int idTurma) {
+		final List<ComponenteAvaliacaoAluno> receitas = new ArrayList<ComponenteAvaliacaoAluno>();
+		
+		for (ComponenteAvaliacao componente : componentes) {
+			final Map<String, Integer> params = new HashMap<String, Integer>();
+			
+			params.put("id_componente", componente.getId());
+			params.put(" id_aluno", idAluno);
+			params.put(" id_turma", idTurma);
+			
+			super.findByInt(params, rs -> {
+				final ComponenteAvaliacaoAluno receita = (ComponenteAvaliacaoAluno) convertResultSet(rs);
+				
+				receitas.add(receita);
+			});
+		}
+
+		return receitas;
+	}
+	
+	public List<ComponenteAvaliacaoAluno> findNota(Integer idComponente, Integer idAluno, int idTurma) {
+		final List<ComponenteAvaliacaoAluno> receitas = new ArrayList<ComponenteAvaliacaoAluno>();
+		final Map<String, Integer> params = new HashMap<String, Integer>();
+		
+		params.put("id_componente", idComponente);
+		params.put(" id_aluno", idAluno);
+		params.put(" id_turma", idTurma);
 		
 		super.findByInt(params, rs -> {
 			final ComponenteAvaliacaoAluno receita = (ComponenteAvaliacaoAluno) convertResultSet(rs);

@@ -58,6 +58,6 @@ public class ComponenteAvaliacao extends ModelAbstract{
 	
 	@Override
 	public String toString() {
-		return "Usuario [tableName=" + tableName + ", componente=" + componente + ", peso=" + peso + "]";
+		return "componente: " + getComponente();
 	}
 }
