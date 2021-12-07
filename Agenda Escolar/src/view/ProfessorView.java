@@ -25,6 +25,7 @@ import javax.swing.event.ListSelectionEvent;
 import javax.swing.event.ListSelectionListener;
 
 import dao.AlunoDAO;
+import dao.ComponenteAvaliacaoAlunoDAO;
 import dao.ComponenteAvaliacaoDAO;
 import dao.ProfessorDAO;
 import dao.TurmaAlunoDAO;
@@ -32,6 +33,7 @@ import dao.TurmaDAO;
 import dao.UsuarioDAO;
 import entity.Aluno;
 import entity.ComponenteAvaliacao;
+import entity.ComponenteAvaliacaoAluno;
 import entity.Professor;
 import entity.Turma;
 import entity.TurmaAluno;
@@ -50,6 +52,7 @@ public class ProfessorView extends JFrame implements ActionListener, ListSelecti
 
 	private Professor professor;
 
+	private ArrayList<ComponenteAvaliacao> listComponentes;
 	private ArrayList<JTextField> tNotas;
 	
 	private void init() {
@@ -60,6 +63,9 @@ public class ProfessorView extends JFrame implements ActionListener, ListSelecti
 		modeloTurmas = new DefaultListModel();
 		criaJListTurmas();
 		criaJListAlunos();
+		
+		listComponentes = new ArrayList<ComponenteAvaliacao>();
+		tNotas = new ArrayList<JTextField>();
 		
 		listaTurmas.addListSelectionListener(this);
 		
@@ -131,19 +137,26 @@ public class ProfessorView extends JFrame implements ActionListener, ListSelecti
 	}
 	
 	private void acaoCadastra() {
-
-		final ProfessorDAO dao = new ProfessorDAO(connection);
-
-		dao.saveOrUpdate(professor);
-
-		professor = dao.find(professor);
-
-		JOptionPane.showMessageDialog(this, "Notas cadastrada com sucesso!");
-
-		//new NavegaView(professor, connection).setVisible(true);
-		//this.dispose();
-
+		final ComponenteAvaliacaoAlunoDAO componenteAvaliacaoAlunoDAO = new ComponenteAvaliacaoAlunoDAO(connection);
+		final ComponenteAvaliacaoDAO componenteAvaliacaoDAO = new ComponenteAvaliacaoDAO(connection);
 		
+		for (int i = 0; i < listComponentes.size(); i++) {
+			
+			int idComponente = listComponentes.get(i).getId();
+			double valor = Double.parseDouble(tNotas.get(i).getText());
+			
+			ComponenteAvaliacaoAluno componenteAvaliacaoAluno = new ComponenteAvaliacaoAluno(idComponente, getIdAluno(), getIdTurma(), valor);
+			
+			ComponenteAvaliacaoAluno componenteAvaliacaoAlunoFind = componenteAvaliacaoAlunoDAO.find(componenteAvaliacaoAluno);
+			
+			if (componenteAvaliacaoAlunoFind != null) {
+				componenteAvaliacaoAluno = new ComponenteAvaliacaoAluno(componenteAvaliacaoAlunoFind.getId(), idComponente, getIdAluno(), getIdTurma(), valor);
+			}
+			
+			componenteAvaliacaoAlunoDAO.saveOrUpdate(componenteAvaliacaoAluno);
+		}
+
+		JOptionPane.showMessageDialog(this, "Nota cadastrada com sucesso!");
 	}
 	
 	private void acaoAbrirCadastroModoAvaliacao() {
@@ -163,7 +176,7 @@ public class ProfessorView extends JFrame implements ActionListener, ListSelecti
 		
 		for (ComponenteAvaliacao componenteAvaliacao : componentesAvaliacaoDAO.findByTurmaId(getIdTurma())) {
 			JTextField tNota = new JTextField();
-			JLabel lblNota = new JLabel("Nota " + componenteAvaliacao.getComponente());
+			JLabel lblNota = new JLabel("Componente " + componenteAvaliacao.getComponente());
 			
 			lblNota.setBounds(100, lblVar, 200, 100);
 			tNota.setBounds(230, tVar, 200, 40);
@@ -174,6 +187,7 @@ public class ProfessorView extends JFrame implements ActionListener, ListSelecti
 			campos.add(tNota);
 			campos.add(lblNota);
 			tNotas.add(tNota);
+			listComponentes.add(componenteAvaliacao);
 		}
 		
 		campos.revalidate();
@@ -187,6 +201,12 @@ public class ProfessorView extends JFrame implements ActionListener, ListSelecti
 	private void criaJListAlunos() {
 		modeloAlunos = new DefaultListModel();
 		listaAlunos = new JList(modeloAlunos);
+	}
+	
+	private int getIdAluno() {
+		Matcher matcher = Pattern.compile("\\d+").matcher(listaAlunos.getSelectedValue().toString());
+		matcher.find();
+		return Integer.valueOf(matcher.group());
 	}
 	
 	private void pesquisarAlunos(DefaultListModel modelo) {
