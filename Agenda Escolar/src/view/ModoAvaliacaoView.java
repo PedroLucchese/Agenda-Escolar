@@ -106,7 +106,7 @@ public class ModoAvaliacaoView extends JFrame implements ActionListener {
 		ComponenteAvaliacao componenteAvaliacao = new ComponenteAvaliacao();
 		Avaliacao avaliacao;
 		
-		avaliacao = avaliacaoDAO.findById(componenteAvaliacao.getIdAvaliacao());
+		avaliacao = avaliacaoDAO.findById(getIdAvaliacao());
 		
 		for (int i = 1; i < avaliacao.getNumeroComponentes() + 1; i++) {
 			

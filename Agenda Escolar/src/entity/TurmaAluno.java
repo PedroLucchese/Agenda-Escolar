@@ -1,7 +1,7 @@
 package entity;
 
 public class TurmaAluno extends ModelAbstract{
-	private String tableName = "turmaAluno";
+	private String tableName = "turmaaluno";
 	private int idTurma;
 	private int idAluno;
 	
